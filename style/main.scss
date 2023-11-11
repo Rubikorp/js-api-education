@@ -1,0 +1,29 @@
+$with: 100vw;
+%center {
+    padding-left: calc(($with - 50vw) / 2);
+    padding-right: calc(($with - 50vw) / 2);
+}
+.form {
+    @extend %center;
+    &__div {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+}
+.label {
+    margin-top: 20px;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+
+.inp-email, .inp-password {
+    margin-top: 10px;
+    width: 50%;
+}
+
+.btn {
+    margin-top: 20px;
+    width: 20%;
+}
