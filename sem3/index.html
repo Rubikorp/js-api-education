@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Unsplash Image</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="image-container">
+        <img src="" alt="Random Unsplash Image" />
+      </div>
+
+      <div class="info-container">
+        <p>About Photographer</p>
+        <button id="like-button">Like</button>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      const favoriteImg = [];
+      if (window.localStorage.getItem('favImg') !== null) favoriteImg.push(JSON.parse(window.localStorage.getItem('favImg')));
+     
+      console.log(favoriteImg);
+      
+      const accessKey = "hHah6kwWA013qXrhmypqQx7Bdxo5QSHKIPi4T3PzNZo";
+
+      const getRandomImg = () => {
+        axios
+          .get(`https://api.unsplash.com/photos/random?client_id=${accessKey}`)
+          .then((response) => {
+            const data = response.data;
+            console.log(data);
+            document.querySelector(".image-container img").src =
+              data.urls.regular;
+            document.querySelector(
+              ".info-container p"
+            ).innerHTML = `By ${data.user.name}`;
+            document
+              .getElementById("like-button")
+              .addEventListener("click", () => {
+                favoriteImg.push(data);
+                console.log("You liked the image!");
+                window.localStorage.setItem('favImg', JSON.stringify(favoriteImg))
+              });
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      };
+
+      getRandomImg();
+    </script>
+  </body>
+</html>
